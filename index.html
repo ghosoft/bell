@@ -332,6 +332,10 @@
       color: white;
       border-radius: 8px;
     }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 
@@ -415,6 +419,21 @@
     let currentProgress = 0;
     let targetProgress = 0;
 
+    window.onload = function () {
+      var buttons = document.querySelectorAll('.button-container button');
+      buttons.forEach(function (button) {
+        button.classList.add('hidden');
+      });
+    };
+
+    // 假设这是你的回调函数
+    function showButtons() {
+      var buttons = document.querySelectorAll('.button-container button');
+      buttons.forEach(function (button) {
+        button.classList.remove('hidden');
+      });
+    }
+
     function set_progress(current_value, total) {
       targetProgress = Math.min((current_value / total) * 100, 100);
       requestAnimationFrame(updateProgressBar); // Start update in a separate "frame"
@@ -489,6 +508,8 @@
       console.log("lcd info w:%d, h:%d", lcd_width, lcd_height);
 
       hideToast();
+
+      showButtons();
     });
 
     $upload.addEventListener("change", function (evt) {
